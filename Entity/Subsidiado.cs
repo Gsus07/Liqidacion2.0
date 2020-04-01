@@ -8,18 +8,19 @@ namespace Entity
 {
     public class Subsidiado : LiquidacionCuotaModeradora
     {
-        public Subsidiado(int numeroLiquidacion, string identificacion, decimal valorServicio) : base(numeroLiquidacion, identificacion, "Subsidiado", valorServicio, 0)
+        public Subsidiado()
         {
+            SalarioDevengado = 0;
         }
 
-        public override decimal Tarifa { get { return 0.05m; } }
-
-        public override int TopeMaximo
+        public override decimal ObtenerTarifa()
         {
-            get
-            {
-                return 200000;
-            }
+            return 5;
+        }
+
+        public override decimal ObtenerTope()
+        {
+            return 200000;
         }
     }
 }

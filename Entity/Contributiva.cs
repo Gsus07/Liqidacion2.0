@@ -2,40 +2,37 @@
 {
     public class Contributiva : LiquidacionCuotaModeradora
     {
-        public Contributiva(int numeroLiquidacion, string identificacion, decimal valorServicio, decimal salario) : base(numeroLiquidacion, identificacion, "Contributiva", valorServicio, salario)
-        {
 
-        }
 
-        public override decimal Tarifa
+        public override decimal ObtenerTarifa()
         {
-            get
+            if (SalarioDevengado < 2)
             {
-                if (SalarioPaciente < 2)
-                {
-                    return 0.15m;
-                }
-                else if (SalarioPaciente <= 5)
-                {
-                    return 0.20m;
-                }
-                else
-                {
-                    return 0.25m;
-                }
+                return 15;
+            }
+            else if (SalarioDevengado >= 2 && SalarioDevengado <= 5)
+            {
+                return 20;
+            }
+            else
+            {
+                return 25;
             }
         }
 
-        public override int TopeMaximo
+        public override decimal ObtenerTope()
         {
-            get
+            if (SalarioDevengado < 2)
             {
-                if (SalarioPaciente < 2)
-                    return 250000;
-                else if (SalarioPaciente <= 5)
-                    return 900000;
-                else
-                    return 15000000;
+                return 250000;
+            }
+            else if (SalarioDevengado >= 2 && SalarioDevengado <= 5)
+            {
+                return 90000;
+            }
+            else
+            {
+                return 1500000;
             }
         }
     }

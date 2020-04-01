@@ -7,33 +7,32 @@ using System.Threading.Tasks;
 namespace Entity
 {
     public abstract class LiquidacionCuotaModeradora { 
-        public int NumeroLiquidacion { get; set; }
+        public string NumeroLiquidacion { get; set; }
         public string IdentificacionPaciente { get; set; }
         public string TipoAfilicion { get; set; }
         public decimal ValorServicio { get; set; }
-        public decimal SalarioPaciente { get; set; }
+        public decimal SalarioDevengado { get; set; }
 
-        public decimal ValorCuota { get; set; }
-        public abstract int TopeMaximo { get; }
-        public abstract decimal Tarifa { get; }
+        public decimal CuotaModerada { get; set; }
+        public decimal TopeMaximo { get; set; }
+        public decimal Tarifa { get; set; }
 
-
-        public LiquidacionCuotaModeradora(int numeroLiquidacion, string identificacion, string tipoAfilicion, decimal valorServicio, decimal salario)
+        public abstract decimal ObtenerTarifa();
+        public abstract decimal ObtenerTope();
+        public decimal LiquidacionCuotaModerada()
         {
-            NumeroLiquidacion = numeroLiquidacion;
-            IdentificacionPaciente = identificacion;
-            TipoAfilicion = tipoAfilicion;
-            ValorServicio = valorServicio;
-            SalarioPaciente = salario;
+            Tarifa = ObtenerTarifa();
+            TopeMaximo = ObtenerTope();
+            CuotaModerada = ValorServicio * (Tarifa / 100) + ValorServicio;
+            LiquidardarCuota();
+            return CuotaModerada;
         }
-
-        public void LiquidarCuota()
+        
+        public void LiquidardarCuota()
         {
-            decimal cuota = ValorServicio * Tarifa;
-            ValorCuota = TopeMaximo;
-            if (cuota <= TopeMaximo)
+            if (CuotaModerada > TopeMaximo)
             {
-                ValorCuota = cuota;
+                CuotaModerada = TopeMaximo;
             }
         }
     }

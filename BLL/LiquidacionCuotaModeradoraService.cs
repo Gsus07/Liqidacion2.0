@@ -10,25 +10,34 @@ namespace BLL
 {
     public class LiquidacionCuotaModeradoraService
     {
-        private readonly LiquidacionCuotaModeradoraRepository moderadoraRepository;
+        LiquidacionCuotaModeradoraRepository liquidacionCuotaModeradoraRepository;
+        
         public LiquidacionCuotaModeradoraService()
         {
-            moderadoraRepository = new LiquidacionCuotaModeradoraRepository();
+            liquidacionCuotaModeradoraRepository = new LiquidacionCuotaModeradoraRepository();
         }
-
-        public bool GuardarLiquidacion(LiquidacionCuotaModeradora liquidacion)
+        public string Guardar(LiquidacionCuotaModeradora liquidacion)
         {
-            return moderadoraRepository.GuardarLiquidacion(liquidacion);
+            return liquidacionCuotaModeradoraRepository.Guardar(liquidacion);
         }
-
-        public List<LiquidacionCuotaModeradora> ObtenerLiquidaciones()
+        public List<LiquidacionCuotaModeradora> Consultar()
         {
-            return moderadoraRepository.ObtenerLiquidaciones();
+            return liquidacionCuotaModeradoraRepository.Consultar();
         }
-
-        public bool EliminarLiquidacion(int numeroLiquidacion)
+        public void Eliminar(string numeroLiquidacion)
         {
-            return moderadoraRepository.EliminarLiquidacion(numeroLiquidacion);
+            liquidacionCuotaModeradoraRepository.Eliminar(numeroLiquidacion);
+        }
+        public void Modificar(LiquidacionCuotaModeradora liquidacion)
+        {
+            liquidacionCuotaModeradoraRepository.Modificar(liquidacion);
+            
+        }
+        public LiquidacionCuotaModeradora ConsultaIndividual(string numeroLiquidacion)
+        {
+            return liquidacionCuotaModeradoraRepository.ConsultaIndividual(numeroLiquidacion);
         }
     }
+        
+    
 }
